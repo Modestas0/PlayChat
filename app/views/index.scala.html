@@ -4,7 +4,7 @@
 
 @main("Welcome to PlayChat") {
     <div id="main-container">
-        <h1>Welcome to PlayChat</h1>
+        @header()
         <span class="error-span">@form("loginError").value</span>
         @helper.form(action = routes.HomeController.login) {
             <div>
