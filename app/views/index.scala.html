@@ -1,7 +1,18 @@
-@(model: HomeModel)
+@import views.html.helper
+
+@(form: Form[HomeModel])
 
 @main("Welcome to PlayChat") {
-    <div>
+    <div id="main-container">
         <h1>Welcome to PlayChat</h1>
+        <span class="error"></span>
+        @helper.form(action = routes.HomeController.login) {
+            <div>
+                <input type="text" name="@form("username").name" value="@form("username").value" placeholder="Your username">
+            </div>
+            <div>
+                <input type="submit" name="submit" value="Login to PlayChat">
+            </div>
+        }
     </div>
 }
