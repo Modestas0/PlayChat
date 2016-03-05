@@ -5,6 +5,8 @@
 GET     /                           controllers.HomeController.index
 POST    /login                      controllers.HomeController.login
 GET     /chat                       controllers.ChatController.chat
+POST    /chat/get                   controllers.ChatController.getMessages
+POST    /chat/post                  controllers.ChatController.postMessage
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
