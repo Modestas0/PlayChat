@@ -14,18 +14,38 @@ public class HomeController extends Controller {
     private FormFactory formFactory;
 
     public Result index() {
-        HomeModel model = getModel();
+        HomeModel model = new HomeModel();
         Form<HomeModel> form = formFactory.form(HomeModel.class).fill(model);
 
         return ok(index.render(form));
     }
 
     public Result login() {
+        HomeModel model;
+        Form<HomeModel> form;
+
+        try {
+            form = getForm().bindFromRequest();
+            model = form.get();
+        } catch(Exception ex) {
+            model = new HomeModel("", "Nepavyko prisijungti!");
+            form = getForm().fill(model);
+            return ok(index.render(form));
+        }
+
+        String username = model.getUsername();
+
+        if(username == null || !username.matches("^[a-zA-Z0-9._-]{3,16}$")) {
+            model.setLoginError("Prisijungimo vardas turi būti nuo 3 iki 16 simbolių ilgio ir sudarytas iš raidžių, skaitmenų arba šių simbolių: . _ -");
+            form = getForm().fill(model);
+            return ok(index.render(form));
+        }
+
+        session("username", model.getUsername());
         return ok();
     }
 
-    private HomeModel getModel() {
-        return new HomeModel();
+    public Form<HomeModel> getForm() {
+        return formFactory.form(HomeModel.class);
     }
-
 }

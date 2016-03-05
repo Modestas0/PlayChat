@@ -5,7 +5,7 @@
 @main("Welcome to PlayChat") {
     <div id="main-container">
         <h1>Welcome to PlayChat</h1>
-        <span class="error"></span>
+        <span class="error-span">@form("loginError").value</span>
         @helper.form(action = routes.HomeController.login) {
             <div>
                 <input type="text" name="@form("username").name" value="@form("username").value" placeholder="Your username">
