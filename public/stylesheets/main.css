@@ -11,18 +11,19 @@
 }
 
 #message-input-background {
+
+}
+
+#message-input-field {
+    height: auto;
+    min-height: 40px;
     margin: 10px;
     padding: 8px;
     font-size: 16px;
     background-color: chartreuse;
     border: 1px solid #888888;
     border-radius: 10px;
-}
-
-#message-input-field {
-    height: auto;
-    min-height: 26px;
-    border-width: 0px;
+    word-wrap: break-word;
 }
 
 #message-input-field:focus {
