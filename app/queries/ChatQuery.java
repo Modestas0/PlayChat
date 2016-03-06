@@ -2,6 +2,7 @@ package queries;
 
 import com.google.inject.Singleton;
 import models.MessageModel;
+import utils.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.LinkedList;
@@ -39,6 +40,7 @@ public class ChatQuery {
      * @param message what posted
      */
     public void addMessage(String username, String message) {
+        message = StringUtils.escapeHTML(message);
         MessageModel model = new MessageModel(messages.size(), LocalDateTime.now(), username, message);
         messages.add(model);
     }
