@@ -51,7 +51,7 @@ public class HomeController extends BaseController {
         }
 
         SessionUtils.logIn(username);
-        return ok();
+        return redirect(controllers.routes.ChatController.chat());
     }
 
     public Form<HomeModel> getForm() {

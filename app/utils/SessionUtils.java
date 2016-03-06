@@ -1,22 +1,51 @@
 package utils;
 
+import play.Logger;
 import play.mvc.Controller;
 
 public class SessionUtils {
+    private static final String USERNAME = "username";
+    private static final String LAST_ACTIVE = "last_active";
+
+    private static final long SESSION_VALIDITY_TIME_MS = 1000L * 60L * 30L; // 30 minutes
+
     public static boolean logIn(String username) {
-        Controller.session("username", username);
+        Controller.session(USERNAME, username);
+        Controller.session(LAST_ACTIVE, String.valueOf(System.currentTimeMillis()));
         return true;
     }
 
     public static boolean isLoggedIn() {
-        return Controller.session("username") != null;
+        String username = Controller.session(USERNAME);
+        String lastActive = Controller.session(LAST_ACTIVE);
+
+        if(username == null || lastActive == null) {
+            return false;
+        }
+
+        long lastActiveMs;
+        try {
+            lastActiveMs = Long.valueOf(lastActive);
+        } catch (NumberFormatException ex) {
+            Logger.error("Session last active does not contain integer", ex);
+            return false;
+        }
+
+        if(System.currentTimeMillis() - lastActiveMs > SESSION_VALIDITY_TIME_MS) {
+            Controller.session().clear();
+            return false;
+        }
+
+        return true;
     }
 
     public static String getUsername() {
-        String username = Controller.session("username");
+        String username = Controller.session(USERNAME);
+
         if(username == null) {
-            username = "";
+            return "";
         }
+
         return username;
     }
 }
