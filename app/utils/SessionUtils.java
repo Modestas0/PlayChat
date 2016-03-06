@@ -7,7 +7,7 @@ public class SessionUtils {
     private static final String USERNAME = "username";
     private static final String LAST_ACTIVE = "last_active";
 
-    private static final long SESSION_VALIDITY_TIME_MS = 1000L * 60L * 30L; // 30 minutes
+    private static final long SESSION_VALIDITY_TIME_MS = 1000L * 60L; // 1 minute
 
     public static boolean logIn(String username) {
         Controller.session(USERNAME, username);
@@ -31,9 +31,12 @@ public class SessionUtils {
             return false;
         }
 
-        if(System.currentTimeMillis() - lastActiveMs > SESSION_VALIDITY_TIME_MS) {
+        long now = System.currentTimeMillis();
+        if(now - lastActiveMs > SESSION_VALIDITY_TIME_MS) {
             Controller.session().clear();
             return false;
+        } else {
+            Controller.session(LAST_ACTIVE, String.valueOf(now));
         }
 
         return true;

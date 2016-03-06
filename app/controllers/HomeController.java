@@ -5,7 +5,6 @@ import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Result;
 import utils.SessionUtils;
-import views.html.chat;
 import views.html.index;
 
 import com.google.inject.Inject;
