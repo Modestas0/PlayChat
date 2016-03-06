@@ -4,6 +4,52 @@
     <div id="main-container">
         @header()
 
+        <script>
+            $(function() {
+                function post(url, data, success) {
+                    return $.ajax({
+                        url: url,
+                        type: 'POST',
+                        data: JSON.stringify(data),
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        success: success
+                    });
+                }
+
+                var lastId = -1;
+
+                function loadMessages() {
+                    var url = '@routes.ChatController.getMessages()';
+                    var data = {};
+                    if(lastId !== -1) {
+                        data = {id: lastId};
+                    }
+                    post(url, data, function(response) {
+                        for(var i = 0; i < response.length; i++) {
+                            addMessage(response[i].time, response[i].username, response[i].message);
+                            lastId = response[i].id;
+                        }
+                    }).fail(function() {
+                        alert('Error retrieving messages');
+                    });
+                }
+
+                function addMessage(time, username, message) {
+                    var html = '<div class="message-container">'
+                             + '    <span class="username">' + username + '</span>'
+                             + '    <span class="message">' + message + '</span>'
+                             + '</div>';
+                    $('#messages').append(html);
+                }
+
+                (function loader() {
+                    loadMessages();
+                    setTimeout(loader, 500);
+                })();
+            });
+        </script>
+
         <div id="messages">
 
         </div>
