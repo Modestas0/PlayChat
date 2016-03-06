@@ -37,7 +37,7 @@
 
                 function postMessage(message) {
                     if(message === '') return;
-                    
+
                     var url = '@routes.ChatController.postMessage()';
                     var data = {
                         message: message
@@ -50,9 +50,11 @@
                 }
 
                 function addMessage(time, username, message) {
-                    var html = '<div class="message-container">'
-                             + '    <div class="username">' + username + '</div>'
-                             + '    <div class="message">' + message + '</div>'
+                    var html = '<div class="messages-table">'
+                             + '    <div class="message-container">'
+                             + '        <div class="username">' + username + '</div>'
+                             + '        <div class="message">' + message + '</div>'
+                             + '    </div>'
                              + '</div>';
                     $('#messages').append(html);
 
@@ -82,9 +84,7 @@
             });
         </script>
 
-        <div id="messages">
-
-        </div>
+        <div id="messages"></div>
 
         <div id="message-input-container">
             <textarea id="message-input-field"></textarea>
