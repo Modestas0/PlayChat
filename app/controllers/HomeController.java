@@ -4,6 +4,8 @@ import models.HomeModel;
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Result;
+import utils.SessionUtils;
+import views.html.chat;
 import views.html.index;
 
 import com.google.inject.Inject;
@@ -13,6 +15,10 @@ public class HomeController extends BaseController {
     private FormFactory formFactory;
 
     public Result index() {
+        if(SessionUtils.isLoggedIn()) {
+            return redirect(controllers.routes.ChatController.chat());
+        }
+
         HomeModel model = new HomeModel();
         Form<HomeModel> form = formFactory.form(HomeModel.class).fill(model);
 
@@ -20,6 +26,10 @@ public class HomeController extends BaseController {
     }
 
     public Result login() {
+        if(SessionUtils.isLoggedIn()) {
+            return redirect(controllers.routes.ChatController.chat());
+        }
+
         HomeModel model;
         Form<HomeModel> form;
 
@@ -40,7 +50,7 @@ public class HomeController extends BaseController {
             return ok(index.render(form));
         }
 
-        session("username", model.getUsername());
+        SessionUtils.logIn(username);
         return ok();
     }
 

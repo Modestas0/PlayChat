@@ -6,6 +6,7 @@ import play.libs.Json;
 import play.mvc.Result;
 import queries.ChatQuery;
 import utils.ControllerUtils;
+import utils.SessionUtils;
 import views.html.chat;
 
 import com.google.inject.Inject;
@@ -17,11 +18,18 @@ public class ChatController extends BaseController {
     ChatQuery chatQuery;
 
     public Result chat() {
+        if(!SessionUtils.isLoggedIn()) {
+            return redirect(controllers.routes.HomeController.index());
+        }
 
         return ok(chat.render());
     }
 
     public Result getMessages() {
+        if(!SessionUtils.isLoggedIn()) {
+            return forbidden("User is not logged in");
+        }
+
         List<MessageModel> messages;
 
         JsonNode json = ControllerUtils.getBodyAsJson();
@@ -45,7 +53,11 @@ public class ChatController extends BaseController {
     }
 
     public Result postMessage() {
-        String username = session("username");
+        if(!SessionUtils.isLoggedIn()) {
+            return forbidden("User is not logged in");
+        }
+
+        String username = SessionUtils.getUsername();
 
         JsonNode json = ControllerUtils.getBodyAsJson();
         if (json == null) {
