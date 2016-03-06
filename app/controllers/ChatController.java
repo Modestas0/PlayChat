@@ -5,6 +5,7 @@ import models.MessageModel;
 import play.libs.Json;
 import play.mvc.Result;
 import queries.ChatQuery;
+import utils.ControllerUtils;
 import views.html.chat;
 
 import com.google.inject.Inject;
@@ -23,7 +24,7 @@ public class ChatController extends BaseController {
     public Result getMessages() {
         List<MessageModel> messages;
 
-        JsonNode json = request().body().asJson();
+        JsonNode json = ControllerUtils.getBodyAsJson();
         if (json == null) {
             return badRequest("Expecting json data");
         }
@@ -42,7 +43,7 @@ public class ChatController extends BaseController {
     public Result postMessage() {
         String username = session("username");
 
-        JsonNode json = request().body().asJson();
+        JsonNode json = ControllerUtils.getBodyAsJson();
         if (json == null) {
             return badRequest("Expecting json data");
         }
