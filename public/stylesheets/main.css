@@ -1,3 +1,30 @@
 .error-span {
     color: red;
 }
+
+#messages {
+
+}
+
+#message-input-container {
+
+}
+
+#message-input-background {
+    margin: 10px;
+    padding: 8px;
+    font-size: 16px;
+    background-color: chartreuse;
+    border: 1px solid #888888;
+    border-radius: 10px;
+}
+
+#message-input-field {
+    height: auto;
+    min-height: 26px;
+    border-width: 0px;
+}
+
+#message-input-field:focus {
+    outline: 0px solid transparent;
+}

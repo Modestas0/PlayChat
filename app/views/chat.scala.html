@@ -1,6 +1,17 @@
 @()
 
 @main("Welcome to PlayChat") {
-    @header()
+    <div id="main-container">
+        @header()
 
+        <div id="messages">
+
+        </div>
+
+        <div id="message-input-container">
+            <div id="message-input-background">
+                <div id="message-input-field" contenteditable="true"></div>
+            </div>
+        </div>
+    </div>
 }
