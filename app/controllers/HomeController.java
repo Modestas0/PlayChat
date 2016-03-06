@@ -3,13 +3,12 @@ package controllers;
 import models.HomeModel;
 import play.data.Form;
 import play.data.FormFactory;
-import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.index;
 
 import com.google.inject.Inject;
 
-public class HomeController extends Controller {
+public class HomeController extends BaseController {
     @Inject
     private FormFactory formFactory;
 

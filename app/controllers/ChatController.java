@@ -3,7 +3,6 @@ package controllers;
 import com.fasterxml.jackson.databind.JsonNode;
 import models.MessageModel;
 import play.libs.Json;
-import play.mvc.Controller;
 import play.mvc.Result;
 import queries.ChatQuery;
 import views.html.chat;
@@ -12,7 +11,7 @@ import com.google.inject.Inject;
 
 import java.util.List;
 
-public class ChatController extends Controller {
+public class ChatController extends BaseController {
     @Inject
     ChatQuery chatQuery;
 
@@ -22,20 +21,19 @@ public class ChatController extends Controller {
     }
 
     public Result getMessages() {
+        List<MessageModel> messages;
+
         JsonNode json = request().body().asJson();
-        if(json == null) {
+        if (json == null) {
             return badRequest("Expecting json data");
         }
 
-        List<MessageModel> messages;
-
         JsonNode idNode = json.findValue("id");
-        if(idNode == null) {
+        if (idNode == null) {
             messages = chatQuery.getMessages();
         } else {
             messages = chatQuery.getMessagesAfter(idNode.asInt());
         }
-
 
         JsonNode result = Json.toJson(messages);
         return ok(result);
@@ -45,12 +43,12 @@ public class ChatController extends Controller {
         String username = session("username");
 
         JsonNode json = request().body().asJson();
-        if(json == null) {
+        if (json == null) {
             return badRequest("Expecting json data");
         }
 
         JsonNode messageNode = json.findValue("message");
-        if(messageNode == null) {
+        if (messageNode == null) {
             return badRequest("Expecting message");
         }
 
