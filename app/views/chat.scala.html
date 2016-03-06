@@ -36,6 +36,8 @@
                 }
 
                 function postMessage(message) {
+                    if(message === '') return;
+                    
                     var url = '@routes.ChatController.postMessage()';
                     var data = {
                         message: message
