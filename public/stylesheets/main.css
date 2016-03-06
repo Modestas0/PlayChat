@@ -3,20 +3,29 @@
 }
 
 #messages {
+    display: table;
+}
 
+.message-container {
+    display: table-row;
+}
+
+.username {
+    display: table-cell;
+}
+
+.message {
+    display: table-cell;
 }
 
 #message-input-container {
 
 }
 
-#message-input-background {
-
-}
-
 #message-input-field {
     height: auto;
     min-height: 40px;
+    width: calc(100% - 20px);
     margin: 10px;
     padding: 8px;
     font-size: 16px;

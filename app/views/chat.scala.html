@@ -31,14 +31,26 @@
                             lastId = response[i].id;
                         }
                     }).fail(function() {
-                        alert('Error retrieving messages');
+                        log('Error retrieving messages');
+                    });
+                }
+
+                function postMessage(message) {
+                    var url = '@routes.ChatController.postMessage()';
+                    var data = {
+                        message: message
+                    };
+                    post(url, data, function(response) {
+                        // ok
+                    }).fail(function() {
+                        alert('Error posting message');
                     });
                 }
 
                 function addMessage(time, username, message) {
                     var html = '<div class="message-container">'
-                             + '    <span class="username">' + username + '</span>'
-                             + '    <span class="message">' + message + '</span>'
+                             + '    <div class="username">' + username + '</div>'
+                             + '    <div class="message">' + message + '</div>'
                              + '</div>';
                     $('#messages').append(html);
                 }
@@ -47,6 +59,16 @@
                     loadMessages();
                     setTimeout(loader, 500);
                 })();
+
+                var messageField = $('#message-input-field');
+                messageField.keypress(function(event) {
+                    if(event.which == 13 && !event.shiftKey) {
+                        postMessage(messageField.val());
+                        messageField.val('');
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                });
             });
         </script>
 
@@ -55,7 +77,7 @@
         </div>
 
         <div id="message-input-container">
-            <div id="message-input-field" contenteditable="true"></div>
+            <textarea id="message-input-field"></textarea>
         </div>
     </div>
 }

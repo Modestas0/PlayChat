@@ -2,6 +2,7 @@ package queries;
 
 import com.google.inject.Singleton;
 import models.MessageModel;
+import play.Logger;
 import utils.StringUtils;
 
 import java.time.LocalDateTime;
@@ -41,6 +42,7 @@ public class ChatQuery {
      */
     public void addMessage(String username, String message) {
         message = StringUtils.escapeHTML(message);
+        message = message.replace("\n", "<br>");
         MessageModel model = new MessageModel(messages.size(), LocalDateTime.now(), username, message);
         messages.add(model);
     }
