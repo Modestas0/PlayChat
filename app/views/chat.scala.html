@@ -53,6 +53,14 @@
                              + '    <div class="message">' + message + '</div>'
                              + '</div>';
                     $('#messages').append(html);
+
+                    // scroll to bottom if message input box is visible
+                    var windowHeight = $(window).height();
+                    var documentHeight = $(document).height();
+                    var scrollTop = $(window).scrollTop();
+                    if(documentHeight - (windowHeight + scrollTop) < 100) {
+                        $(window).scrollTop(documentHeight);
+                    }
                 }
 
                 (function loader() {
