@@ -33,7 +33,11 @@ public class ChatController extends BaseController {
         if (idNode == null) {
             messages = chatQuery.getMessages();
         } else {
-            messages = chatQuery.getMessagesAfter(idNode.asInt());
+            int id = idNode.asInt(-1);
+            if(id < 0) {
+                return badRequest("Expecting positive integer");
+            }
+            messages = chatQuery.getMessagesAfter(id);
         }
 
         JsonNode result = Json.toJson(messages);
@@ -54,6 +58,9 @@ public class ChatController extends BaseController {
         }
 
         String message = messageNode.asText();
+        if(message.isEmpty()) {
+            return badRequest("Message cannot be empty");
+        }
 
         chatQuery.addMessage(username, message);
 
