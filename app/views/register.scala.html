@@ -1,0 +1,24 @@
+@import views.html.helper
+
+@(form: Form[RegisterModel])
+
+@main("Register to PlayChat") {
+    <div id="main-container">
+        @header()
+        <span class="error-span">@form("registerError").value</span>
+        @helper.form(action = routes.RegisterController.submit) {
+            <div>
+                <input type="text" name="@form("username").name" value="@form("username").value" placeholder="Enter username">
+            </div>
+            <div>
+                <input type="password" name="@form("password").name" value="@form("password").value" placeholder="Enter password">
+            </div>
+            <div>
+                <input type="password" name="@form("passwordAgain").name" value="@form("passwordAgain").value" placeholder="Enter passwordAgain">
+            </div>
+            <div>
+                <input type="submit" name="submit" value="Register to PlayChat">
+            </div>
+        }
+    </div>
+}
