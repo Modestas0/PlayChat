@@ -4,6 +4,7 @@ import models.HomeModel;
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Result;
+import queries.UserQuery;
 import utils.SessionUtils;
 import views.html.index;
 
@@ -12,6 +13,8 @@ import com.google.inject.Inject;
 public class HomeController extends BaseController {
     @Inject
     private FormFactory formFactory;
+    @Inject
+    private UserQuery userQuery;
 
     public Result index() {
         if(SessionUtils.isLoggedIn()) {
@@ -42,12 +45,20 @@ public class HomeController extends BaseController {
         }
 
         String username = model.getUsername();
+        String password = model.getPassword();
 
-        if(username == null || !username.matches("^[a-zA-Z0-9._-]{3,16}$")) {
-            model.setLoginError("Prisijungimo vardas turi būti nuo 3 iki 16 simbolių ilgio ir sudarytas iš raidžių, skaitmenų arba šių simbolių: . _ -");
+        if(!userQuery.userExist(username, password)) {
+            model.setPassword("");
+            model.setLoginError("Neteisingas vartotojo vardas arba slaptažodis.");
             form = getForm().fill(model);
             return ok(index.render(form));
         }
+
+        /*if(username == null || !username.matches("^[a-zA-Z0-9._-]{3,16}$")) {
+            model.setLoginError("Prisijungimo vardas turi būti nuo 3 iki 16 simbolių ilgio ir sudarytas iš raidžių, skaitmenų arba šių simbolių: . _ -");
+            form = getForm().fill(model);
+            return ok(index.render(form));
+        }*/
 
         SessionUtils.logIn(username);
         return redirect(controllers.routes.ChatController.chat());
