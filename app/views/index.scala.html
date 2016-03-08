@@ -6,6 +6,7 @@
     <div id="main-container">
         @header()
         <span class="error-span">@form("loginError").value</span>
+        <span class="success-span">@form("successMessage").value</span>
         @helper.form(action = routes.HomeController.login) {
             <div>
                 <input type="text" name="@form("username").name" value="@form("username").value" placeholder="Your username">

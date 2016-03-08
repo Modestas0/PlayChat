@@ -1,17 +1,22 @@
 package controllers;
 
 import com.google.inject.Inject;
+import models.HomeModel;
 import models.RegisterModel;
 import org.h2.engine.Session;
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Result;
+import queries.UserQuery;
 import utils.SessionUtils;
+import views.html.index;
 import views.html.register;
 
 public class RegisterController extends BaseController {
     @Inject
     private FormFactory formFactory;
+    @Inject
+    private UserQuery userQuery;
 
     public Result register() {
         if(SessionUtils.isLoggedIn()) {
@@ -55,7 +60,14 @@ public class RegisterController extends BaseController {
             return error(username, "Slaptažodžiai nesutampa");
         }
 
-        return ok();
+        userQuery.addUser(username, password);
+
+        HomeModel homeModel = new HomeModel();
+        homeModel.setUsername(username);
+        homeModel.setSuccessMessage("Registracija baigta! Dabar galite prisijungti.");
+
+        Form<HomeModel> homeForm = formFactory.form(HomeModel.class).fill(homeModel);
+        return ok(index.render(homeForm));
     }
 
     private Form<RegisterModel> getForm() {

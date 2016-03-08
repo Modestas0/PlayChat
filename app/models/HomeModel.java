@@ -4,6 +4,7 @@ public class HomeModel {
     private String username;
     private String password;
     private String loginError;
+    private String successMessage;
 
     public HomeModel() {
 
@@ -36,5 +37,13 @@ public class HomeModel {
 
     public void setLoginError(String loginError) {
         this.loginError = loginError;
+    }
+
+    public String getSuccessMessage() {
+        return successMessage;
+    }
+
+    public void setSuccessMessage(String successMessage) {
+        this.successMessage = successMessage;
     }
 }
