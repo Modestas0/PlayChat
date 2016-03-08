@@ -1,4 +1,4 @@
-name := """PlayChat2"""
+name := """PlayChat"""
 
 version := "1.0-SNAPSHOT"
 
