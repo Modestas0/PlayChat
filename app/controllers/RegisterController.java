@@ -19,7 +19,7 @@ public class RegisterController extends BaseController {
     private UserQuery userQuery;
 
     public Result register() {
-        if(SessionUtils.isLoggedIn()) {
+        if (SessionUtils.isLoggedIn()) {
             return redirect(controllers.routes.ChatController.chat());
         }
 
@@ -30,7 +30,7 @@ public class RegisterController extends BaseController {
     }
 
     public Result submit() {
-        if(SessionUtils.isLoggedIn()) {
+        if (SessionUtils.isLoggedIn()) {
             return redirect(controllers.routes.ChatController.chat());
         }
 
@@ -48,15 +48,15 @@ public class RegisterController extends BaseController {
         String password = model.getPassword();
         String passwordAgain = model.getPasswordAgain();
 
-        if(username == null || !username.matches("^[a-zA-Z0-9._-]{3,16}$")) {
+        if (username == null || !username.matches("^[a-zA-Z0-9._-]{3,16}$")) {
             return error(username, "Username length must be from 3 to 16 symbols and may contain letters, digits or these symbols: . _ -");
         }
 
-        if(password == null || !password.matches("^(?=.*\\d)(?=.*[a-zA-Z]).{6,}$")) {
+        if (password == null || !password.matches("^(?=.*\\d)(?=.*[a-zA-Z]).{6,}$")) {
             return error(username, "Password must contain at least one letter and one digit and must be at least 6 symbols in length");
         }
 
-        if(!password.equals(passwordAgain)) {
+        if (!password.equals(passwordAgain)) {
             return error(username, "Passwords do not match");
         }
 

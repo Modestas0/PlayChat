@@ -18,7 +18,7 @@ public class ChatController extends BaseController {
     ChatQuery chatQuery;
 
     public Result chat() {
-        if(!SessionUtils.isLoggedIn()) {
+        if (!SessionUtils.isLoggedIn()) {
             return redirect(controllers.routes.HomeController.index());
         }
 
@@ -26,7 +26,7 @@ public class ChatController extends BaseController {
     }
 
     public Result getMessages() {
-        if(!SessionUtils.isLoggedIn()) {
+        if (!SessionUtils.isLoggedIn()) {
             return forbidden("User is not logged in");
         }
 
@@ -42,7 +42,7 @@ public class ChatController extends BaseController {
             messages = chatQuery.getMessages();
         } else {
             int id = idNode.asInt(-1);
-            if(id < 0) {
+            if (id < 0) {
                 return badRequest("Expecting positive integer");
             }
             messages = chatQuery.getMessagesAfter(id);
@@ -53,13 +53,13 @@ public class ChatController extends BaseController {
     }
 
     public Result postMessage() {
-        if(!SessionUtils.isLoggedIn()) {
+        if (!SessionUtils.isLoggedIn()) {
             return forbidden("User is not logged in");
         }
 
         Integer userId = SessionUtils.getUserId();
 
-        if(userId == null) {
+        if (userId == null) {
             return forbidden("User is not logged in");
         }
 
@@ -74,7 +74,7 @@ public class ChatController extends BaseController {
         }
 
         String message = messageNode.asText();
-        if(message.isEmpty()) {
+        if (message.isEmpty()) {
             return badRequest("Message cannot be empty");
         }
 

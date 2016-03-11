@@ -17,7 +17,7 @@ public class HomeController extends BaseController {
     private UserQuery userQuery;
 
     public Result index() {
-        if(SessionUtils.isLoggedIn()) {
+        if (SessionUtils.isLoggedIn()) {
             return redirect(controllers.routes.ChatController.chat());
         }
 
@@ -28,7 +28,7 @@ public class HomeController extends BaseController {
     }
 
     public Result login() {
-        if(SessionUtils.isLoggedIn()) {
+        if (SessionUtils.isLoggedIn()) {
             return redirect(controllers.routes.ChatController.chat());
         }
 
@@ -38,7 +38,7 @@ public class HomeController extends BaseController {
         try {
             form = getForm().bindFromRequest();
             model = form.get();
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             model = new HomeModel("", "Invalid login form data");
             form = getForm().fill(model);
             return ok(index.render(form));
@@ -48,7 +48,7 @@ public class HomeController extends BaseController {
         String password = model.getPassword();
 
         Integer userId = userQuery.getUserId(username, password);
-        if(userId == null) {
+        if (userId == null) {
             model = new HomeModel(username, "Wrong username or password");
             form = getForm().fill(model);
             return ok(index.render(form));

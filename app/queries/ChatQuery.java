@@ -15,6 +15,7 @@ public class ChatQuery {
 
     /**
      * Get all messages ordered from oldest to newest
+     *
      * @return messages
      */
     public LinkedList<Message> getMessages() {
@@ -23,6 +24,7 @@ public class ChatQuery {
 
     /**
      * Get messages with higher id than provided
+     *
      * @param id from which id to show messages (non inclusive)
      * @return messages
      */
@@ -32,7 +34,8 @@ public class ChatQuery {
 
     /**
      * Add new message to chat
-     * @param userId id of user who posted it
+     *
+     * @param userId  id of user who posted it
      * @param message what user posted
      */
     public void addMessage(int userId, String message) {

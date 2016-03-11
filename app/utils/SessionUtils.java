@@ -21,7 +21,7 @@ public class SessionUtils {
         String username = Controller.session(USERNAME);
         String lastActive = Controller.session(LAST_ACTIVE);
 
-        if(username == null || lastActive == null) {
+        if (username == null || lastActive == null) {
             return false;
         }
 
@@ -34,7 +34,7 @@ public class SessionUtils {
         }
 
         long now = System.currentTimeMillis();
-        if(now - lastActiveMs > SESSION_VALIDITY_TIME_MS) {
+        if (now - lastActiveMs > SESSION_VALIDITY_TIME_MS) {
             Controller.session().clear();
             return false;
         } else {
@@ -47,7 +47,7 @@ public class SessionUtils {
     public static String getUsername() {
         String username = Controller.session(USERNAME);
 
-        if(username == null) {
+        if (username == null) {
             return "";
         }
 
@@ -57,7 +57,7 @@ public class SessionUtils {
     public static Integer getUserId() {
         String id = Controller.session(USER_ID);
 
-        if(id == null) {
+        if (id == null) {
             return null;
         }
 

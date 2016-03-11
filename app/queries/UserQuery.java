@@ -15,12 +15,13 @@ public class UserQuery {
      * Checks if such user with such password exists
      * if exists, returns user id
      * if not, returs null
+     *
      * @param username
      * @param password
      * @return
      */
     public Integer getUserId(String username, String password) {
-        if(username == null || password == null || password.length() == 0) {
+        if (username == null || password == null || password.length() == 0) {
             return null;
         }
 
@@ -39,16 +40,17 @@ public class UserQuery {
 
     /**
      * Adds new user to database
+     *
      * @param username
      * @param password
      * @return false if wrong parameters or user already exists, true otherwise
      */
     public boolean addUser(String username, String password) {
-        if(username == null || password == null || password.length() == 0) {
+        if (username == null || password == null || password.length() == 0) {
             return false;
         }
 
-        if(userTable.getUser(username) != null) {
+        if (userTable.getUser(username) != null) {
             return false;
         }
 

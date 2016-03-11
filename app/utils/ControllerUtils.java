@@ -9,7 +9,7 @@ public class ControllerUtils {
         JsonNode json = null;
         try {
             json = Controller.request().body().asJson();
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             Logger.error("Error getting json from body", ex);
         }
         return json;

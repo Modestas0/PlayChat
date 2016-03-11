@@ -44,7 +44,7 @@ public class MessageTable {
         try {
             statement = connection.createStatement();
             result = statement.executeQuery(selectAllMessages);
-            while(result.next()) {
+            while (result.next()) {
                 Message message = new Message();
                 message.setId(result.getInt("id"));
                 message.setTime(DateUtils.toLocalDateTime(result.getTimestamp("time")));
@@ -81,7 +81,7 @@ public class MessageTable {
             statement = connection.prepareStatement(selectMessagesFromId);
             statement.setInt(1, id);
             result = statement.executeQuery();
-            while(result.next()) {
+            while (result.next()) {
                 Message message = new Message();
                 message.setId(result.getInt("id"));
                 message.setTime(DateUtils.toLocalDateTime(result.getTimestamp("time")));
