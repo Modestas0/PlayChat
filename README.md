@@ -1,16 +1,16 @@
 # PlayChat
 Chat web application written using Java and Play Framework
 
-## Activator console
+### Activator console
 To start activator console application, run `activator` from root directory of the project.
 
-## Compiling
+### Compiling
 In activator console type `compile`
 
-## Running
+### Running
 In activator console type `run`
 
-## Database
+### Database
 PlayChat uses MySQL database
 
 You can import database and tables structure from file `playchat.sql` (placed in root directory)
