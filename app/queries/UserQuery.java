@@ -1,8 +1,5 @@
 package queries;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.google.inject.Inject;
 import database.UserTable;
 import database.models.User;
@@ -13,26 +10,39 @@ import com.google.inject.Singleton;
 public class UserQuery {
     @Inject
     UserTable userTable;
-    private Map<String, String> users = new HashMap<>();
 
-    public boolean userExist(String username, String password) {
+    /**
+     * Checks if such user with such password exists
+     * if exists, returns user id
+     * if not, returs null
+     * @param username
+     * @param password
+     * @return
+     */
+    public Integer getUserId(String username, String password) {
         if(username == null || password == null || password.length() == 0) {
-            return false;
+            return null;
         }
 
         User user = userTable.getUser(username);
         if (user == null) {
-            return false;
+            return null;
         }
 
         if (!BCrypt.checkpw(password, user.getPasswordHash())) {
-            return false;
+            return null;
         }
 
         userTable.updateLastActive(user.getId());
-        return true;
+        return user.getId();
     }
 
+    /**
+     * Adds new user to database
+     * @param username
+     * @param password
+     * @return false if wrong parameters or user already exists, true otherwise
+     */
     public boolean addUser(String username, String password) {
         if(username == null || password == null || password.length() == 0) {
             return false;

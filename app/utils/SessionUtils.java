@@ -5,13 +5,15 @@ import play.mvc.Controller;
 
 public class SessionUtils {
     private static final String USERNAME = "username";
+    private static final String USER_ID = "user_id";
     private static final String LAST_ACTIVE = "last_active";
 
     private static final long SESSION_VALIDITY_TIME_MS = 1000L * 60L; // 1 minute
 
-    public static boolean logIn(String username) {
+    public static boolean logIn(String username, int userId) {
         Controller.session(USERNAME, username);
-        Controller.session(LAST_ACTIVE, String.valueOf(System.currentTimeMillis()));
+        Controller.session(USER_ID, Integer.toString(userId));
+        Controller.session(LAST_ACTIVE, Long.toString(System.currentTimeMillis()));
         return true;
     }
 
@@ -50,5 +52,15 @@ public class SessionUtils {
         }
 
         return username;
+    }
+
+    public static Integer getUserId() {
+        String id = Controller.session(USER_ID);
+
+        if(id == null) {
+            return null;
+        }
+
+        return Integer.valueOf(id);
     }
 }

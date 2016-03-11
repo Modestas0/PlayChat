@@ -57,7 +57,11 @@ public class ChatController extends BaseController {
             return forbidden("User is not logged in");
         }
 
-        String username = SessionUtils.getUsername();
+        Integer userId = SessionUtils.getUserId();
+
+        if(userId == null) {
+            return forbidden("User is not logged in");
+        }
 
         JsonNode json = ControllerUtils.getBodyAsJson();
         if (json == null) {
@@ -74,7 +78,7 @@ public class ChatController extends BaseController {
             return badRequest("Message cannot be empty");
         }
 
-        chatQuery.addMessage(username, message);
+        chatQuery.addMessage(userId, message);
 
         JsonNode result = Json.newObject();
         return ok(result);

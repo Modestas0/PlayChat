@@ -47,13 +47,14 @@ public class HomeController extends BaseController {
         String username = model.getUsername();
         String password = model.getPassword();
 
-        if(!userQuery.userExist(username, password)) {
+        Integer userId = userQuery.getUserId(username, password);
+        if(userId == null) {
             model = new HomeModel(username, "Wrong username or password");
             form = getForm().fill(model);
             return ok(index.render(form));
         }
 
-        SessionUtils.logIn(username);
+        SessionUtils.logIn(username, userId);
         return redirect(controllers.routes.ChatController.chat());
     }
 

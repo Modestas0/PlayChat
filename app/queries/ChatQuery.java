@@ -1,22 +1,24 @@
 package queries;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import database.MessageTable;
 import database.models.Message;
 import utils.StringUtils;
 
-import java.time.LocalDateTime;
 import java.util.LinkedList;
 
 @Singleton
 public class ChatQuery {
-    private LinkedList<Message> messages = new LinkedList<>();
+    @Inject
+    MessageTable messageTable;
 
     /**
      * Get all messages ordered from oldest to newest
      * @return messages
      */
     public LinkedList<Message> getMessages() {
-        return messages;
+        return messageTable.getMessages();
     }
 
     /**
@@ -25,24 +27,17 @@ public class ChatQuery {
      * @return messages
      */
     public LinkedList<Message> getMessagesAfter(int id) {
-        LinkedList<Message> after = new LinkedList<>();
-        for(Message message : messages) {
-            if(message.getId() > id) {
-                after.add(message);
-            }
-        }
-        return after;
+        return messageTable.getMessagesFromId(id);
     }
 
     /**
      * Add new message to chat
-     * @param username who posted it
-     * @param message what posted
+     * @param userId id of user who posted it
+     * @param message what user posted
      */
-    public void addMessage(String username, String message) {
+    public void addMessage(int userId, String message) {
         message = StringUtils.escapeHTML(message);
         message = message.replace("\n", "<br>");
-        Message model = new Message(messages.size(), LocalDateTime.now(), username, message);
-        messages.add(model);
+        messageTable.addMessage(userId, message);
     }
 }
