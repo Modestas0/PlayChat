@@ -8,4 +8,9 @@ public class Logger {
     public static void error(String message) {
         System.err.println("[error] " + message);
     }
+
+    public static void error(String message, Exception execption) {
+        System.err.println("[error] " + message);
+        execption.printStackTrace();
+    }
 }
