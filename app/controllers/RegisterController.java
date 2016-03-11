@@ -49,7 +49,7 @@ public class RegisterController extends BaseController {
         String passwordAgain = model.getPasswordAgain();
 
         if(username == null || !username.matches("^[a-zA-Z0-9._-]{3,16}$")) {
-            return error(username, "Username length must be from 3 to 16 symbols and and may contain letters, digits or these symbols: . _ -");
+            return error(username, "Username length must be from 3 to 16 symbols and may contain letters, digits or these symbols: . _ -");
         }
 
         if(password == null || !password.matches("^(?=.*\\d)(?=.*[a-zA-Z]).{6,}$")) {
