@@ -5,7 +5,8 @@
 @main("Register to PlayChat") {
     <div id="main-container">
         @header()
-        <span class="error-span">@form("registerError").value</span>
+        <a href="@routes.HomeController.index">Return to home page</a>
+        <div class="error-span">@form("registerError").value</div>
         @helper.form(action = routes.RegisterController.submit) {
             <div>
                 <input type="text" name="@form("username").name" value="@form("username").value" placeholder="Enter username">
