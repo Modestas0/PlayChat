@@ -17,20 +17,22 @@ public class MessageTable {
 
     private static final String selectAllMessages = "SELECT message.id AS id, " +
             "message.time AS time, " +
-            "message.user_id AS user_id, " +
+            "user.username AS username, " +
             "message.message AS message " +
-            "FROM message " +
+            "FROM message, user " +
+            "WHERE user.id = message.user_id " +
             "ORDER BY message.id ASC;";
 
     private static final String selectMessagesFromId = "SELECT message.id AS id, " +
             "message.time AS time, " +
-            "message.user_id AS user_id, " +
+            "user.username AS username, " +
             "message.message AS message " +
-            "FROM message " +
+            "FROM message, user " +
             "WHERE message.id > ? " +
+            "AND user.id = message.user_id " +
             "ORDER BY message.id ASC;";
 
-    private static final String insertMessage = "INSERT INTO message (time, username, message) " +
+    private static final String insertMessage = "INSERT INTO message (time, user_id, message) " +
             "VALUES (?, ?, ?);";
 
     public LinkedList<Message> getMessages() {
