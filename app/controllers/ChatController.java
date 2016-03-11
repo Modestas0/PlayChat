@@ -1,7 +1,7 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import models.MessageModel;
+import database.models.Message;
 import play.libs.Json;
 import play.mvc.Result;
 import queries.ChatQuery;
@@ -30,7 +30,7 @@ public class ChatController extends BaseController {
             return forbidden("User is not logged in");
         }
 
-        List<MessageModel> messages;
+        List<Message> messages;
 
         JsonNode json = ControllerUtils.getBodyAsJson();
         if (json == null) {

@@ -1,18 +1,18 @@
-package models;
+package database.models;
 
 import java.time.LocalDateTime;
 
-public class MessageModel {
+public class Message {
     private int id;
     private LocalDateTime time;
     private String username;
     private String message;
 
-    public MessageModel() {
+    public Message() {
 
     }
 
-    public MessageModel(int id, LocalDateTime time, String username, String message) {
+    public Message(int id, LocalDateTime time, String username, String message) {
         this.id = id;
         this.time = time;
         this.username = username;
