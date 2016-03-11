@@ -32,6 +32,7 @@
                         }
                     }).fail(function() {
                         log('Error retrieving messages');
+                        window.location.href = '@routes.HomeController.index()';
                     });
                 }
 
