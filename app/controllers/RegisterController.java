@@ -41,7 +41,7 @@ public class RegisterController extends BaseController {
             form = getForm().bindFromRequest();
             model = form.get();
         } catch (Exception ex) {
-            return error("", "Nepavyko užregistruoti!");
+            return error("", "Invalid register form data");
         }
 
         String username = model.getUsername();
@@ -49,22 +49,22 @@ public class RegisterController extends BaseController {
         String passwordAgain = model.getPasswordAgain();
 
         if(username == null || !username.matches("^[a-zA-Z0-9._-]{3,16}$")) {
-            return error(username, "Prisijungimo vardas turi būti nuo 3 iki 16 simbolių ilgio ir sudarytas iš raidžių, skaitmenų arba šių simbolių: . _ -");
+            return error(username, "Username length must be from 3 to 16 symbols and and may contain letters, digits or these symbols: . _ -");
         }
 
         if(password == null || !password.matches("^(?=.*\\d)(?=.*[a-zA-Z]).{6,}$")) {
-            return error(username, "Slaptažodis turi būti sudarytas iš bent vienos raidės ir bent vieno skaičiaus ir turi būti bent 6 simbolių ilgio.");
+            return error(username, "Password must contain at least one letter and one digit and must be at least 6 symbols in length");
         }
 
         if(!password.equals(passwordAgain)) {
-            return error(username, "Slaptažodžiai nesutampa");
+            return error(username, "Passwords do not match");
         }
 
         userQuery.addUser(username, password);
 
         HomeModel homeModel = new HomeModel();
         homeModel.setUsername(username);
-        homeModel.setSuccessMessage("Registracija baigta! Dabar galite prisijungti.");
+        homeModel.setSuccessMessage("Registration completed! Now you can log in");
 
         Form<HomeModel> homeForm = formFactory.form(HomeModel.class).fill(homeModel);
         return ok(index.render(homeForm));

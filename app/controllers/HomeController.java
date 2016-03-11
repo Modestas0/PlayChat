@@ -39,7 +39,7 @@ public class HomeController extends BaseController {
             form = getForm().bindFromRequest();
             model = form.get();
         } catch(Exception ex) {
-            model = new HomeModel("", "Nepavyko prisijungti!");
+            model = new HomeModel("", "Invalid login form data");
             form = getForm().fill(model);
             return ok(index.render(form));
         }
@@ -48,17 +48,10 @@ public class HomeController extends BaseController {
         String password = model.getPassword();
 
         if(!userQuery.userExist(username, password)) {
-            model.setPassword("");
-            model.setLoginError("Neteisingas vartotojo vardas arba slaptažodis.");
+            model = new HomeModel(username, "Wrong username or password");
             form = getForm().fill(model);
             return ok(index.render(form));
         }
-
-        /*if(username == null || !username.matches("^[a-zA-Z0-9._-]{3,16}$")) {
-            model.setLoginError("Prisijungimo vardas turi būti nuo 3 iki 16 simbolių ilgio ir sudarytas iš raidžių, skaitmenų arba šių simbolių: . _ -");
-            form = getForm().fill(model);
-            return ok(index.render(form));
-        }*/
 
         SessionUtils.logIn(username);
         return redirect(controllers.routes.ChatController.chat());
