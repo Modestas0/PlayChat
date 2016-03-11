@@ -18,5 +18,10 @@
                 <input type="submit" name="submit" value="Login to PlayChat"> <a href="@routes.RegisterController.register">Register</a>
             </div>
         }
+        <script>
+            $(function() {
+                $('input[name="@form("username").name"]').focus();
+            });
+        </script>
     </div>
 }
