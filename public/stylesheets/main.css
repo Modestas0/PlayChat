@@ -32,6 +32,10 @@
     word-wrap: break-word;
 }
 
+.logout-btn {
+    margin: 0 0 15px 5px;
+}
+
 #message-input-container {
 
 }

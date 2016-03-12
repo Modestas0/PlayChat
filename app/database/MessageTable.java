@@ -21,7 +21,8 @@ public class MessageTable {
             "message.message AS message " +
             "FROM message, user " +
             "WHERE user.id = message.user_id " +
-            "ORDER BY message.id ASC;";
+            "ORDER BY message.id ASC " +
+            "LIMIT 50;";
 
     private static final String selectMessagesFromId = "SELECT message.id AS id, " +
             "message.time AS time, " +
