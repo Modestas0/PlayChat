@@ -21,7 +21,7 @@ public class MessageTable {
             "message.message AS message " +
             "FROM message, user " +
             "WHERE user.id = message.user_id " +
-            "ORDER BY message.id ASC " +
+            "ORDER BY message.id DESC " +
             "LIMIT 50;";
 
     private static final String selectMessagesFromId = "SELECT message.id AS id, " +
@@ -51,7 +51,7 @@ public class MessageTable {
                 message.setTime(DateUtils.toLocalDateTime(result.getTimestamp("time")));
                 message.setUsername(result.getString("username"));
                 message.setMessage(result.getString("message"));
-                messages.add(message);
+                messages.add(0, message);
             }
         } catch (SQLException ex) {
             Logger.error("Error in MessageTable.getMessages", ex);
