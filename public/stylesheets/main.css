@@ -1,9 +1,13 @@
 .error-span {
+    display: block;
     color: red;
+    margin-bottom: 15px;
 }
 
 .success-span {
+    display: block;
     color: green;
+    margin-bottom: 15px;
 }
 
 .messages-table {
@@ -19,6 +23,7 @@
     padding: 0 5px;
     font-weight: 900;
     color: forestgreen;
+    text-align: right;
 }
 
 .message {
@@ -46,4 +51,13 @@
 
 #message-input-field:focus {
     outline: 0px solid transparent;
+}
+
+#form-container {
+    max-width: 240px;
+    margin: 5px 0 0 10px;
+}
+
+#form-container .btn-group {
+    margin-bottom: 15px;
 }
