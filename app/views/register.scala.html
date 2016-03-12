@@ -5,28 +5,26 @@
 @main("Register to PlayChat") {
     <div id="main-container">
         @header()
-        <div id="form-container">
-            <div class="btn-group btn-group-justified">
-                <a class="btn btn-default" href="@routes.HomeController.index">Return to home page</a>
-            </div>
-            <div class="error-span">@form("registerError").value</div>
-            @helper.form(action = routes.RegisterController.submit) {
-                <div class="form-group">
-                    <input type="text" class="form-control" name="@form("username").name" value="@form("username").value" placeholder="Enter username" autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <input type="password" class="form-control" name="@form("password").name" value="@form("password").value" placeholder="Enter password" autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <input type="password" class="form-control" name="@form("passwordAgain").name" value="@form("passwordAgain").value" placeholder="Enter passwordAgain" autocomplete="off">
-                </div>
-                <div class="btn-group btn-group-justified">
-                    <div class="btn-group">
-                        <input type="submit" class="btn btn-default" name="submit" value="Register to PlayChat">
-                    </div>
-                </div>
-            }
+        <div class="btn-group btn-group-justified form-element form-element-width">
+            <a class="btn btn-default" href="@routes.HomeController.index">Return to home page</a>
         </div>
+        <div class="error-span form-element">@form("registerError").value</div>
+        @helper.form(action = routes.RegisterController.submit) {
+            <div class="form-group form-element form-element-width">
+                <input type="text" class="form-control" name="@form("username").name" value="@form("username").value" placeholder="Enter username" autocomplete="off">
+            </div>
+            <div class="form-group form-element form-element-width">
+                <input type="password" class="form-control" name="@form("password").name" value="@form("password").value" placeholder="Enter password" autocomplete="off">
+            </div>
+            <div class="form-group form-element form-element-width">
+                <input type="password" class="form-control" name="@form("passwordAgain").name" value="@form("passwordAgain").value" placeholder="Enter passwordAgain" autocomplete="off">
+            </div>
+            <div class="btn-group btn-group-justified form-element form-element-width">
+                <div class="btn-group">
+                    <input type="submit" class="btn btn-default" name="submit" value="Register to PlayChat">
+                </div>
+            </div>
+        }
         <script>
             $(function() {
                 $('input[name="@form("username").name"]').focus();
