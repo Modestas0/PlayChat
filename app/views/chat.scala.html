@@ -26,9 +26,18 @@
                         data = {id: lastId};
                     }
                     post(url, data, function(response) {
+                        var html = '';
+                        var firstTime = (lastId === -1);
                         for(var i = 0; i < response.length; i++) {
-                            addMessage(response[i].time, response[i].username, response[i].message);
+                            html += getMessageHTML(response[i].time, response[i].username, response[i].message);
                             lastId = response[i].id;
+                        }
+                        $('#messages').append(html);
+                        if(firstTime) {
+                            scrollToBottomAlways();
+                            setTimeout(scrollToBottomAlways, 500); // for slow devices
+                        } else {
+                            scrollToBottom();
                         }
                     }).fail(function() {
                         log('Error retrieving messages');
@@ -50,20 +59,31 @@
                     });
                 }
 
-                function addMessage(time, username, message) {
-                    var html = '<div class="message-container">'
+                function getMessageHTML(time, username, message) {
+                    return '<div class="message-container">'
                              + '    <div class="username">' + username + '</div>'
                              + '    <div class="message">' + message + '</div>'
                              + '</div>';
-                    $('#messages').append(html);
+                }
 
-                    // scroll to bottom if message input box is visible
+                /**
+                 * scroll to bottom if message input box is visible
+                  */
+                function scrollToBottom() {
                     var windowHeight = $(window).height();
                     var documentHeight = $(document).height();
                     var scrollTop = $(window).scrollTop();
                     if(documentHeight - (windowHeight + scrollTop) < 100) {
                         $(window).scrollTop(documentHeight);
                     }
+                }
+
+                /**
+                 * just scrolls to bottom
+                 */
+                function scrollToBottomAlways() {
+                    var documentHeight = $(document).height();
+                    $(window).scrollTop(documentHeight);
                 }
 
                 (function loader() {
