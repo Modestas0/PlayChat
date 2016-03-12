@@ -16,3 +16,6 @@ PlayChat uses MySQL database
 You can import database and tables structure from file `playchat.sql` (placed in root directory)
 
 To change MySQL connection parameters, edit `conf/application.conf` file. At the bottom of this file there are `default.url = "mysql://root:password@localhost/playchat"` which should be changed.
+
+### Room for improvement
+* All messages could not be loaded because it is slow (especially on mobile devices). Currently there are a limit of 50 messages. There could be incremental loading on page scroll up or on button press.
