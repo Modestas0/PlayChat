@@ -3,6 +3,8 @@ package utils;
 import play.Logger;
 import play.mvc.Controller;
 
+import javax.naming.ldap.Control;
+
 public class SessionUtils {
     private static final String USERNAME = "username";
     private static final String USER_ID = "user_id";
@@ -17,11 +19,21 @@ public class SessionUtils {
         return true;
     }
 
+    public static void logOut() {
+        Controller.session(USERNAME, "");
+        Controller.session(USER_ID, "");
+        Controller.session(LAST_ACTIVE, "");
+    }
+
     public static boolean isLoggedIn() {
         String username = Controller.session(USERNAME);
         String lastActive = Controller.session(LAST_ACTIVE);
 
         if (username == null || lastActive == null) {
+            return false;
+        }
+
+        if (username.isEmpty() || lastActive.isEmpty()) {
             return false;
         }
 
@@ -35,7 +47,7 @@ public class SessionUtils {
 
         long now = System.currentTimeMillis();
         if (now - lastActiveMs > SESSION_VALIDITY_TIME_MS) {
-            Controller.session().clear();
+            logOut();
             return false;
         } else {
             Controller.session(LAST_ACTIVE, String.valueOf(now));

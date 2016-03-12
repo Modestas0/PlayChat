@@ -4,6 +4,7 @@
 
 GET     /                           controllers.HomeController.index
 POST    /login                      controllers.HomeController.login
+GET     /logout                     controllers.HomeController.logout
 GET     /chat                       controllers.ChatController.chat
 POST    /chat/get                   controllers.ChatController.getMessages
 POST    /chat/post                  controllers.ChatController.postMessage

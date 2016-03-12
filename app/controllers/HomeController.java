@@ -57,6 +57,21 @@ public class HomeController extends BaseController {
         SessionUtils.logIn(username, userId);
         return redirect(controllers.routes.ChatController.chat());
     }
+
+    public Result logout() {
+        if (!SessionUtils.isLoggedIn()) {
+            return redirect(routes.HomeController.index());
+        }
+
+        SessionUtils.logOut();
+
+        HomeModel model = new HomeModel();
+        model.setSuccessMessage("Atsijungta sėkmingai!");
+        Form<HomeModel> form = formFactory.form(HomeModel.class).fill(model);
+
+        return ok(index.render(form));
+    }
+
     public Form<HomeModel> getForm() {
         return formFactory.form(HomeModel.class);
     }
