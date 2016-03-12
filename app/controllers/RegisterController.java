@@ -60,7 +60,9 @@ public class RegisterController extends BaseController {
             return error(username, "Passwords do not match");
         }
 
-        userQuery.addUser(username, password);
+        if(!userQuery.addUser(username, password)) {
+            return error(username, "Username is already used");
+        }
 
         HomeModel homeModel = new HomeModel();
         homeModel.setUsername(username);

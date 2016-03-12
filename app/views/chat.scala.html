@@ -36,7 +36,7 @@
                         if(firstTime) {
                             scrollToBottomAlways();
                             setTimeout(scrollToBottomAlways, 500); // for slow devices
-                        } else {
+                        } else if(response.length > 0) {
                             scrollToBottom();
                         }
                     }).fail(function() {
